@@ -5,17 +5,21 @@ import (
 	"fmt"
 	"log"
 
-	_ "github.com/go-sql-driver/mysql"
+    _ "github.com/lib/pq"
+	// _ "github.com/go-sql-driver/mysql"
 )
 
 var DB *sql.DB
 
 func init() {
 
-    dbConnectionString := fmt.Sprintf("root@tcp(localhost:3306)/piii_categories")
 
+    dbConnectionString := fmt.Sprintf("user=postgres.pdmuqyxthlzfmgndvtze password=RboXthPftGR4NgDX host=aws-0-ap-southeast-1.pooler.supabase.com port=5432 dbname=postgres")
+
+
+    
     var err error
-    DB, err = sql.Open("mysql", dbConnectionString)
+    DB, err = sql.Open("postgres", dbConnectionString)
     if err != nil {
         log.Fatal(err)
     }

@@ -155,7 +155,7 @@ func getCategory(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	row := db.QueryRow("SELECT id, category, about FROM categories WHERE id = ?", id)
+	row := db.QueryRow("SELECT * FROM categories WHERE id = $1", id)
 
 	var p Categories
 	if err := row.Scan(&p.ID, &p.Category, &p.About); err != nil {
@@ -171,8 +171,8 @@ func getCategory(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(p)
 }
 
-func getCategories(db *sql.DB, w http.ResponseWriter, r *http.Request) {
-	rows, err := db.Query("SELECT id, category, about FROM categories")
+func getCategories(db *sql.DB, w http.ResponseWriter, _ *http.Request) {
+	rows, err := db.Query("SELECT * FROM categories")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -200,19 +200,15 @@ func createCategory(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, err := db.Exec("INSERT INTO categories (category, about) VALUES (?, ?)", p.Category, p.About)
+	var id int
+	
+	err := db.QueryRow("INSERT INTO categories (category, about) VALUES ($1, $2) RETURNING id", p.Category, p.About).Scan(&id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	id, err := result.LastInsertId()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	p.ID = int(id)
+	p.ID = id
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(p)
 }
@@ -224,7 +220,7 @@ func updateCategory(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if _, err := db.Exec("UPDATE categories SET category = ?, about = ? WHERE id = ?", p.Category, p.About, p.ID); err != nil {
+	if _, err := db.Exec("UPDATE categories SET category = $1, about = $2 WHERE id = $3", p.Category, p.About, p.ID); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -240,7 +236,7 @@ func deleteCategory(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if _, err := db.Exec("DELETE FROM categories WHERE id = ?", id); err != nil {
+	if _, err := db.Exec("DELETE FROM categories WHERE id = $1", id); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
