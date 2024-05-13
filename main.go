@@ -106,12 +106,12 @@ func main() {
 
 	 // Set up CORS middleware
 	 c := cors.New(cors.Options{
-        AllowedOrigins: []string{"https://kostsplayer.github.io/restful-swagger-client"},
-        AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
-        AllowedHeaders: []string{"Content-Type", "Authorization"},
-		AllowCredentials: true, // Tambahkan opsi ini
-        Debug: true,
-    })
+		AllowedOrigins: []string{"https://kostsplayer.github.io"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedHeaders: []string{"Content-Type", "Authorization"},
+		AllowCredentials: true,
+		Debug: true,
+	})
 	
     handler := c.Handler(router)
 	
