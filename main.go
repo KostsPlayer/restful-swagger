@@ -110,6 +110,7 @@ func main() {
         AllowedOrigins: []string{"http://127.0.0.1:5500", "https://kostsplayer.github.io/restful-swagger-client"},
         AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
         AllowedHeaders: []string{"Content-Type", "Authorization"},
+		AllowCredentials: true, // Tambahkan opsi ini
         Debug: true,
     })
 	
