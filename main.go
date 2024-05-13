@@ -181,18 +181,18 @@ func getCategories(db *sql.DB, w http.ResponseWriter, _ *http.Request) {
 	}
 	defer rows.Close()
 
-	var Categorys []Categories
+	var Category []Categories
 	for rows.Next() {
 		var p Categories
 		if err := rows.Scan(&p.ID, &p.Category, &p.About); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		Categorys = append(Categorys, p)
+		Category = append(Category, p)
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(Categorys)
+	json.NewEncoder(w).Encode(Category)
 }
 
 func createCategory(db *sql.DB, w http.ResponseWriter, r *http.Request) {
