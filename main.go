@@ -107,11 +107,12 @@ func main() {
 	 // Set up CORS middleware
 	 c := cors.New(cors.Options{
 		AllowedOrigins: []string{"https://kostsplayer.github.io"},
-		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"}, // Tambahkan method-method yang diperlukan
 		AllowedHeaders: []string{"Content-Type", "Authorization"},
 		AllowCredentials: true,
 		Debug: true,
 	})
+	
 	
     handler := c.Handler(router)
 	
