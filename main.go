@@ -69,7 +69,6 @@ func main() {
 	router.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "OPTIONS" {
             // Handle preflight request
-            w.Header().Set("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
             w.Header().Set("Access-Control-Allow-Origin", "https://kostsplayer.github.io/restful-swagger-client")
             w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
             w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
@@ -107,7 +106,7 @@ func main() {
 
 	 // Set up CORS middleware
 	 c := cors.New(cors.Options{
-        AllowedOrigins: []string{"http://127.0.0.1:5500", "https://kostsplayer.github.io/restful-swagger-client"},
+        AllowedOrigins: []string{"https://kostsplayer.github.io/restful-swagger-client"},
         AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
         AllowedHeaders: []string{"Content-Type", "Authorization"},
 		AllowCredentials: true, // Tambahkan opsi ini
