@@ -69,7 +69,7 @@ func main() {
 	router.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "OPTIONS" {
             // Handle preflight request
-            w.Header().Set("Access-Control-Allow-Origin", "https://go-restful-swagger-client.vercel.app")
+            w.Header().Set("Access-Control-Allow-Origin", "https://go-restful-swagger-client.vercel.app/")
             w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
             w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
             return
@@ -106,7 +106,7 @@ func main() {
 
 	 // Set up CORS middleware
 	 c := cors.New(cors.Options{
-		AllowedOrigins: []string{"https://go-restful-swagger-client.vercel.app"},
+		AllowedOrigins: []string{"https://go-restful-swagger-client.vercel.app/"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"}, // Tambahkan method-method yang diperlukan
 		AllowedHeaders: []string{"Content-Type", "Authorization"},
 		AllowCredentials: true,
@@ -116,7 +116,7 @@ func main() {
 	
     handler := c.Handler(router)
 	
-	fmt.Println("Server is running on https://golang-swagger-server.vercel.app")
+	fmt.Println("Server is running on https://go-restful-swagger-client.vercel.app")
 	log.Fatal(http.ListenAndServe(":8082", handler))
 }
 
