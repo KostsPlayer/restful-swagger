@@ -116,7 +116,7 @@ func main() {
 	
     handler := c.Handler(router)
 	
-	fmt.Println("Server is running on http://localhost:8082")
+	fmt.Println("Server is running on https://golang-swagger-server.vercel.app")
 	log.Fatal(http.ListenAndServe(":8082", handler))
 }
 
